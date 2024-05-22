@@ -14,6 +14,8 @@ tags:
 servers:
   - url: http://localhost:8080/v1/api
     description: Local server
+security:
+  - bearerAuth: []
 paths:
   /analysis:
     get:
@@ -201,8 +203,129 @@ paths:
                 $ref: '#/components/schemas/HomologySearchResp'
         '405':
           description: Invalid input
+  /user:
+    post:
+      tags:
+        - User
+      summary: Creates a user
+      description: Creates a user
+      operationId: create
+      requestBody:
+        description: Username and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '200':
+          description: The created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '405':
+          description: Invalid input
+  /auth:
+    post:
+      tags:
+        - Auth
+      summary: Perform the authentication to get token JWT
+      description: Generates a JWT token by the user and password
+      operationId: authenticate
+      requestBody:
+        description: Username and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '200':
+          description: The generated token JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenJwt'
+        '405':
+          description: Invalid input
+  /auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Perform the authentication to get token JWT with the refresh token
+      description: Generates a JWT token by the refresh token
+      operationId: authRefreshToken
+      requestBody:
+        description: Refresh Token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshToken'
+        required: true
+      responses:
+        '200':
+          description: The generated token JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenJwt'
+        '405':
+          description: Invalid input
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
+
+    # Refresh Token
+    RefreshToken:
+      type:
+        object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+          example: abc123
+
+    ## User
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 123
+        username:
+          type: string
+          example: bioguy
+
+    ## Authentication
+    Login:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: bioguy
+        password:
+          type: string
+          example: abc123
+    TokenJwt:
+      type: object
+      properties:
+        token:
+          type: string
+          example: abcde12345
+        refreshToken:
+          type: string
+          example: abcde12345
+
     ## Alignment
     PairwiseAlnReq:
       type: object

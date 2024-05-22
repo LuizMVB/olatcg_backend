@@ -34,6 +34,8 @@ services:
 
 networks:
   olatcg-bridge:
+    name: olatcg-bridge
     driver: bridge
 volumes:
   olatcg-db:
+    name: olatcg-db

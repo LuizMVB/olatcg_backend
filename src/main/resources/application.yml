@@ -1,5 +1,7 @@
 spring:
   devtools:
+    restart:
+      poll-interval: 2s
     remote:
       secret: '123'
   jackson:
@@ -26,3 +28,11 @@ server:
   port: ${port:8080}
   servlet:
     context-path: /olatcg-backend
+
+auth:
+  jwt:
+    token:
+      secret: ''
+      expiration: 1
+    refresh-token:
+      expiration: 8

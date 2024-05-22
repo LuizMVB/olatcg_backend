@@ -29,6 +29,7 @@
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
 		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
 		<mapstruct-processor.version>1.5.3.Final</mapstruct-processor.version>
+		<java-jwt.version>4.4.0</java-jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -54,6 +55,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
@@ -109,6 +115,11 @@
 			<groupId>org.biojava</groupId>
 			<artifactId>biojava-alignment</artifactId>
 			<version>${biojava-alignment}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

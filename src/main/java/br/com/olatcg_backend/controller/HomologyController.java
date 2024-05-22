@@ -1,17 +1,16 @@
 package br.com.olatcg_backend.controller;
 
 import br.com.olatcg_backend.mapper.HomologyMapper;
-import br.com.olatcg_backend.repository.AnalysisRepository;
 import br.com.olatcg_backend.service.HomologySearchService;
 import io.tej.SwaggerCodgen.api.HomologyApi;
 import io.tej.SwaggerCodgen.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/v1/api")
 public class HomologyController implements HomologyApi {
 
@@ -20,9 +19,6 @@ public class HomologyController implements HomologyApi {
 
     @Autowired
     private HomologySearchService homologySearchService;
-
-    @Autowired
-    private AnalysisRepository analysisRepository;
 
     @Override
     public ResponseEntity<HomologySearchRespDTO> search(SearchToolEnumDTO type, HomologySearchReqDTO homologySearchReqDTO) {
